@@ -8,6 +8,9 @@ const areaMensagens = document.querySelector(".mensagens-chat");
 const rolagemChat = document.querySelector(".rolagem-chat");
 const campoChat = document.querySelector(".caixa-chat textarea");
 const botaoChatEnviar = document.querySelector(".botao-chat-enviar");
+const seletorProvedorIA = document.querySelector("#provedor-ia");
+const seletorProvedorIAInicial = document.querySelector("#provedor-ia-inicial");
+const provedorSalvo = localStorage.getItem("provedorIA") || "azure";
 const inputFotoPerfil = document.querySelector("#foto-perfil");
 const usuarioAvatarFoto = document.querySelector(".usuario-avatar-foto");
 const usuarioAvatarLetra = document.querySelector(".usuario-avatar-letra");
@@ -20,40 +23,243 @@ const fotoPerfilSalva = localStorage.getItem("fotoPerfil");
 const usuarioNome = document.querySelector(".usuario-nome");
 const usuarioNomeInput = document.querySelector(".usuario-nome-input");
 
+const botaoAbrirConfiguracaoAPI =
+    document.querySelector("#abrir-configuracao-api");
+
+    const botaoAbrirConfiguracaoAPIInicial =
+    document.querySelector("#abrir-configuracao-api-inicial");
+
+const botaoFecharConfiguracaoAPI =
+    document.querySelector("#fechar-modal-api");
+
+const botaoSalvarConfiguracaoAPI =
+    document.querySelector("#salvar-configuracao-api");
+
+const modalAPI =
+    document.querySelector("#modal-api");
+
+const configuracaoAzure =
+    document.querySelector("#configuracao-azure");
+
+const configuracaoGemini =
+    document.querySelector("#configuracao-gemini");
+
+const campoAzureURL =
+    document.querySelector("#usuario-azure-url");
+
+const campoAzureKey =
+    document.querySelector("#usuario-azure-key");
+
+const campoAzureModel =
+    document.querySelector("#usuario-azure-model");
+
+const campoGeminiKey =
+    document.querySelector("#usuario-gemini-key");
+
+const campoGeminiModel =
+    document.querySelector("#usuario-gemini-model");
+
+seletorProvedorIA.value = provedorSalvo;
+seletorProvedorIAInicial.value = provedorSalvo;
+
+seletorProvedorIA.addEventListener("change", function () {
+    seletorProvedorIAInicial.value =
+        seletorProvedorIA.value;
+
+    localStorage.setItem(
+        "provedorIA",
+        seletorProvedorIA.value
+    );
+});
+
+seletorProvedorIAInicial.addEventListener("change", function () {
+    seletorProvedorIA.value =
+        seletorProvedorIAInicial.value;
+
+    localStorage.setItem(
+        "provedorIA",
+        seletorProvedorIAInicial.value
+    );
+});
+
+botaoAbrirConfiguracaoAPI.addEventListener("click", function () {
+    atualizarCamposDaConfiguracao();
+    modalAPI.classList.add("aberto");
+});
+
+botaoAbrirConfiguracaoAPIInicial.addEventListener(
+    "click",
+    function () {
+        atualizarCamposDaConfiguracao();
+        modalAPI.classList.add("aberto");
+    }
+);
+
+botaoFecharConfiguracaoAPI.addEventListener("click", function () {
+    modalAPI.classList.remove("aberto");
+});
+
+
+modalAPI.addEventListener("click", function (evento) {
+    if (evento.target === modalAPI) {
+        modalAPI.classList.remove("aberto");
+    }
+});
+
+botaoSalvarConfiguracaoAPI.addEventListener("click", function () {
+    const configuracaoSalva = obterConfiguracaoDoUsuario();
+
+    if (seletorProvedorIA.value === "azure") {
+        const url = campoAzureURL.value.trim();
+        const chave = campoAzureKey.value.trim();
+        const modelo = campoAzureModel.value.trim();
+
+        if (!url || !modelo) {
+            alert("Preencha o endpoint e o modelo da Azure.");
+            return;
+        }
+
+        if (!chave && !configuracaoSalva.AZURE_API_KEY) {
+            alert("Digite a chave da Azure.");
+            return;
+        }
+
+        configuracaoSalva.AZURE_API_URL = url;
+        configuracaoSalva.AZURE_MODEL = modelo;
+
+        if (chave) {
+            configuracaoSalva.AZURE_API_KEY = chave;
+        }
+    } else {
+        const chave = campoGeminiKey.value.trim();
+        const modelo = campoGeminiModel.value.trim();
+
+        if (!modelo) {
+            alert("Digite o modelo do Gemini.");
+            return;
+        }
+
+        if (!chave && !configuracaoSalva.GEMINI_API_KEY) {
+            alert("Digite a chave do Gemini.");
+            return;
+        }
+
+        configuracaoSalva.GEMINI_MODEL = modelo;
+
+        if (chave) {
+            configuracaoSalva.GEMINI_API_KEY = chave;
+        }
+    }
+
+    localStorage.setItem(
+        "configuracaoAPIUsuario",
+        JSON.stringify(configuracaoSalva)
+    );
+
+    alert("Configuração salva com sucesso.");
+    location.reload();
+});
+
 let AZURE_API_URL = "";
 let AZURE_API_KEY = "";
 let AZURE_MODEL = "";
 
 async function carregarConfiguracoes() {
-    const resposta = await fetch("./config.env");
+    let configuracoesDoArquivo = {};
 
-    if (!resposta.ok) {
-        throw new Error("Não foi possível carregar o config.env");
+    try {
+        const resposta = await fetch("./config.env", {
+            cache: "no-store"
+        });
+
+        if (resposta.ok) {
+            const texto = await resposta.text();
+
+            configuracoesDoArquivo = Object.fromEntries(
+                texto
+                    .split("\n")
+                    .map((linha) => linha.trim())
+                    .filter((linha) =>
+                        linha &&
+                        !linha.startsWith("#") &&
+                        linha.includes("=")
+                    )
+                    .map((linha) => {
+                        const posicaoIgual = linha.indexOf("=");
+
+                        return [
+                            linha.slice(0, posicaoIgual).trim(),
+                            linha.slice(posicaoIgual + 1).trim()
+                        ];
+                    })
+            );
+        }
+    } catch (erro) {
+        console.warn(
+            "O config.env não foi encontrado. " +
+            "Será utilizada a configuração do usuário."
+        );
     }
 
-    const texto = await resposta.text();
+    const configuracaoDoUsuario =
+        obterConfiguracaoDoUsuario();
 
-    const configuracoes = Object.fromEntries(
-        texto
-            .split("\n")
-            .map((linha) => linha.trim())
-            .filter((linha) => linha && !linha.startsWith("#"))
-            .map((linha) => {
-                const posicaoIgual = linha.indexOf("=");
+    const configuracoes = {
+        ...configuracoesDoArquivo,
+        ...configuracaoDoUsuario
+    };
 
-                return [
-                    linha.slice(0, posicaoIgual).trim(),
-                    linha.slice(posicaoIgual + 1).trim()
-                ];
-            })
-    );
+    AZURE_API_URL = configuracoes.AZURE_API_URL || "";
+    AZURE_API_KEY = configuracoes.AZURE_API_KEY || "";
+    AZURE_MODEL = configuracoes.AZURE_MODEL || "";
 
-    AZURE_API_URL = configuracoes.AZURE_API_URL;
-    AZURE_API_KEY = configuracoes.AZURE_API_KEY;
-    AZURE_MODEL = configuracoes.AZURE_MODEL;
-}
+    return configuracoes;
+}   
 
 const configuracoesProntas = carregarConfiguracoes();
+
+function obterConfiguracaoDoUsuario() {
+    try {
+        return JSON.parse(
+            localStorage.getItem("configuracaoAPIUsuario")
+        ) || {};
+    } catch (erro) {
+        return {};
+    }
+}
+
+function atualizarCamposDaConfiguracao() {
+    const configuracaoSalva = obterConfiguracaoDoUsuario();
+    const provedor = seletorProvedorIA.value;
+
+    configuracaoAzure.style.display =
+        provedor === "azure" ? "flex" : "none";
+
+    configuracaoGemini.style.display =
+        provedor === "gemini" ? "flex" : "none";
+
+    campoAzureURL.value =
+        configuracaoSalva.AZURE_API_URL || "";
+
+    campoAzureModel.value =
+        configuracaoSalva.AZURE_MODEL || "";
+
+    campoGeminiModel.value =
+        configuracaoSalva.GEMINI_MODEL || "";
+
+    campoAzureKey.value = "";
+    campoGeminiKey.value = "";
+
+    campoAzureKey.placeholder =
+        configuracaoSalva.AZURE_API_KEY
+            ? "Chave da Azure já salva"
+            : "Digite sua chave da Azure";
+
+    campoGeminiKey.placeholder =
+        configuracaoSalva.GEMINI_API_KEY
+            ? "Chave do Gemini já salva"
+            : "Digite sua chave do Gemini";
+}
 
 const instrucoesGustaguest = `
 Você é o Gustaguest, um assistente de inteligência artificial especializado em
@@ -132,6 +338,98 @@ async function consultarAzure(mensagem, historico, instrucaoSistema) {
 
     return texto;
 }   
+
+async function consultarGemini(mensagem, historico, instrucaoSistema) {
+    const {
+        GEMINI_API_KEY,
+        GEMINI_MODEL
+    } = await configuracoesProntas;
+
+    if (!GEMINI_API_KEY || !GEMINI_MODEL) {
+        throw new Error("Configurações do Gemini não encontradas");
+    }
+
+    const conteudos = (historico || []).map(function (item) {
+        return {
+            role: item.autor === "ia" ? "model" : "user",
+            parts: [
+                {
+                    text: item.texto
+                }
+            ]
+        };
+    });
+
+    conteudos.push({
+        role: "user",
+        parts: [
+            {
+                text: mensagem
+            }
+        ]
+    });
+
+    const urlGemini =
+        `https://generativelanguage.googleapis.com/v1beta/models/` +
+        `${encodeURIComponent(GEMINI_MODEL)}:generateContent`;
+
+    const resposta = await fetch(urlGemini, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": GEMINI_API_KEY
+        },
+        body: JSON.stringify({
+            system_instruction: {
+                parts: [
+                    {
+                        text: instrucaoSistema || instrucoesGustaguest
+                    }
+                ]
+            },
+            contents: conteudos
+        })
+    });
+
+    const dados = await resposta.json();
+
+    if (!resposta.ok) {
+        const detalhe =
+            dados.error && dados.error.message
+                ? dados.error.message
+                : "Erro ao consultar o Gemini";
+
+        throw new Error(detalhe);
+    }
+
+    const texto = dados.candidates?.[0]?.content?.parts
+        ?.map((parte) => parte.text || "")
+        .join("")
+        .trim();
+
+    if (!texto) {
+        throw new Error("O Gemini não devolveu uma resposta");
+    }
+
+    return texto;
+}
+
+async function consultarIA(mensagem, historico, instrucaoSistema) {
+    if (seletorProvedorIA.value === "gemini") {
+        return consultarGemini(
+            mensagem,
+            historico,
+            instrucaoSistema
+        );
+    }
+
+    return consultarAzure(
+        mensagem,
+        historico,
+        instrucaoSistema
+    );
+}
+
 campoChat.addEventListener("input", function () {
     campoChat.style.height = "auto";
 
@@ -549,7 +847,7 @@ Crie um título curto em português para a conversa.
 Use no máximo 5 palavras. Mostre somente o título, sem aspas e sem ponto final.
 `;
 
-        const tituloGerado = await consultarAzure(
+        const tituloGerado = await consultarIA(
             mensagem,
             [],
             instrucaoTitulo
@@ -632,7 +930,7 @@ areaMensagens.appendChild(mensagemIA);
 
 rolagemChat.scrollTop = rolagemChat.scrollHeight;
 try {
-    const respostaCompleta = await consultarAzure(
+    const respostaCompleta = await consultarIA(
         mensagem,
         conversaAtual.mensagens.slice(0, -1)
     );
@@ -677,7 +975,7 @@ async function regenerarRespostaIA(indiceMensagemUsuario) {
     let respostaCompleta;
 
     try {
-        respostaCompleta = await consultarAzure(
+        respostaCompleta = await consultarIA(
             mensagemUsuario.texto,
             historicoAnterior
         );

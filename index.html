@@ -18,7 +18,25 @@
             <h1>Olá, sou <span>Gustaguest</span></h1>
             <p class="subtitulo">e sou seu assistente de estudo.</p>
             <img src="pena.png" alt="" class="pena">
-                <div class="caixa-pergunta">
+            
+<div class="seletor-api seletor-api-inicial">
+    <label for="provedor-ia-inicial">Modelo:</label>
+
+    <select id="provedor-ia-inicial">
+        <option value="azure">ChatGPT</option>
+        <option value="gemini">Gemini</option>
+    </select>
+
+    <button
+        type="button"
+        id="abrir-configuracao-api-inicial"
+        class="abrir-configuracao-api"
+    >
+        Configurar API
+    </button>
+</div>
+            
+            <div class="caixa-pergunta">
                     <input type="text" placeholder="O QUE VOCÊ DESEJA ESTUDAR?">
                     <button type="button" class="botao-enviar">
                          <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -92,6 +110,24 @@
             accept="image/*"
             hidden
 >
+<div class="seletor-api">
+    <label for="provedor-ia">Modelo:</label>
+
+    <select id="provedor-ia">
+        <option value="azure">ChatGPT</option>
+        <option value="gemini">Gemini</option>
+    </select>
+
+    <button
+    type="button"
+    id="abrir-configuracao-api"
+    class="abrir-configuracao-api"
+>
+        Configurar API
+    </button>
+</div>
+
+
 
             <div class="caixa-chat">
                 <textarea
@@ -107,6 +143,68 @@
             </div>
         </section>
     </main>
+
+    <div class="modal-api" id="modal-api">
+    <div class="modal-api-conteudo">
+        <button
+            type="button"
+            class="fechar-modal-api"
+            id="fechar-modal-api"
+            aria-label="Fechar"
+        >
+            &times;
+        </button>
+
+        <h2>Configurar API</h2>
+
+        <div id="configuracao-azure">
+            <label for="usuario-azure-url">Endpoint da Azure</label>
+            <input
+                type="url"
+                id="usuario-azure-url"
+                placeholder="https://seu-recurso.../chat/completions"
+            >
+
+            <label for="usuario-azure-key">Chave da Azure</label>
+            <input
+                type="password"
+                id="usuario-azure-key"
+                placeholder="Digite sua chave da Azure"
+            >
+
+            <label for="usuario-azure-model">Modelo da Azure</label>
+            <input
+                type="text"
+                id="usuario-azure-model"
+                placeholder="Exemplo: gpt-5-mini"
+            >
+        </div>
+
+        <div id="configuracao-gemini">
+            <label for="usuario-gemini-key">Chave do Gemini</label>
+            <input
+                type="password"
+                id="usuario-gemini-key"
+                placeholder="Digite sua chave do Gemini"
+            >
+
+            <label for="usuario-gemini-model">Modelo do Gemini</label>
+            <input
+                type="text"
+                id="usuario-gemini-model"
+                placeholder="Exemplo: gemini-3.6-flash"
+            >
+        </div>
+
+        <p class="aviso-chave-api">
+            A chave ficará salva somente neste navegador.
+        </p>
+
+        <button type="button" id="salvar-configuracao-api">
+            Salvar configuração
+        </button>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 <script src="script.js"></script>
