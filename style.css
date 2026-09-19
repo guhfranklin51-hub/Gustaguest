@@ -1,0 +1,971 @@
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #020b14;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #020b14;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.conteudo-inicial h1 {
+    color: white;
+    margin: 0;
+    font-size: 60.5px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 300;
+}
+
+.conteudo-inicial {
+    position: relative;
+    transform: scale(1.45);
+    transform-origin: left center;
+}
+
+.conteudo-inicial h1 span {
+    background: radial-gradient(circle at 50% 50%, #98e8cd, #1a8591);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.subtitulo {
+    color: white;
+    margin: 0;
+    font-size: 28px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 400;
+    margin-top: 12px;
+}
+
+.pena {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    left: 47px;
+    top: 160px;
+}
+
+.tela-inicial {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 8%;
+    transform: translateY(-25px);
+    position: relative;
+}
+
+.neon {
+        position: absolute;
+        width: 380px;
+        right: -70px;
+        top: 55%;
+        transform: translateY(-50%);
+}
+
+.caixa-pergunta {
+    margin-top: 40px;
+    width: 790px;
+    height: 50px;
+    display: flex;
+    transform: translate(80px, 60px);
+    position: relative;
+}
+.caixa-pergunta input {
+    flex: 1;
+    background-color: #8f969d;
+    border: 2px solid #18b7b0;
+    border-radius: 30px;
+    padding-left: 20px;
+    color: white;
+    outline: none;
+}   
+.caixa-pergunta button {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #d9dde0;
+    border: 2px solid #7f8b91;
+    color: #020b14;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.caixa-pergunta button svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #5f6b72;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+}
+
+.logo {
+    position: absolute;
+    top: 45px;
+    left: 45px;
+    width: 55px;
+    height: auto;
+    z-index: 10;
+}
+
+.tela-chat {
+    display: none;
+} 
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+     background: linear-gradient(180deg, #000000, #737373);
+    display: flex;
+    flex-direction: column;
+}
+
+.area-chat {
+    flex: 1;
+    height: 100vh;
+    background-color: #020b14;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-logo {
+    width: 32px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.sidebar-topo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 10px;
+}
+
+.sidebar-nome {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+
+    background: radial-gradient(circle at 50% 50%, #98e8cd, #1a8591);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.nova-conversa {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 9px 8px;
+
+    border: 1.5px solid transparent;
+    border-radius: 22px;
+
+    background:
+        linear-gradient(#07131d, #07131d) padding-box,
+        radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+
+    color: #98e8cd;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+
+    cursor: pointer;
+}
+
+.historico-chats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 10px;
+
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.rolagem-chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+.rolagem-chat::-webkit-scrollbar-thumb {
+    background: #98e8cd;
+    border-radius: 10px;
+}
+
+.rolagem-chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.historico-chats::-webkit-scrollbar {
+    width: 6px;
+}
+
+.historico-chats::-webkit-scrollbar-thumb {
+    background: #98e8cd;
+    border-radius: 10px;
+}
+
+.historico-chats::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.historico-chats button {
+    width: 100%;
+    padding: 9px 12px;
+
+    border: 2px solid transparent;
+    border-radius: 22px;
+
+background:
+    linear-gradient(#07131d, #07131d) padding-box,
+    radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+    color: #98e8cd;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+
+    text-align: center;
+    cursor: pointer;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.excluir-conversa {
+    margin-left: 8px;
+    margin-top: 2px;
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.historico-chats button:hover .excluir-conversa {
+    opacity: 1;
+}
+
+.titulo-conversa {
+    flex: 1;
+    text-align: center;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.historico-chats button.conversa-ativa {
+    border-width: 3px;
+
+    background:
+        linear-gradient(#07131d, #07131d) padding-box,
+        radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+
+box-shadow:
+    0 0 8px rgba(152, 232, 205, 0.8),
+    0 0 18px rgba(26, 133, 145, 0.6);
+}
+
+.mensagens-chat {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+
+    gap: 12px;
+   padding: 50px 24px 30px 24px;
+    box-sizing: border-box;
+}
+
+.rolagem-chat {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    width: 100%;
+    background: transparent;
+}
+
+.mensagem-usuario {
+    color: white;
+    align-self: flex-end;
+    padding: 12px 24px;
+    border-radius: 28px;
+    max-width: 320px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+
+    border: 1.5px solid transparent;
+
+    background:
+        linear-gradient(#232a33, #232a33) padding-box,
+        radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+}
+
+.mensagem-ia {
+    color: white;
+    align-self: flex-start;
+
+    padding: 12px 18px;
+    border-radius: 28px;
+    max-width: 420px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    box-sizing: border-box;
+
+    background: #232a33;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.mensagem-ia pre {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.mensagem-ia code {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.mensagem-ia strong,
+.mensagem-ia b {
+    font-weight: 599;
+    color: inherit;
+    text-shadow: none;
+}
+
+.mensagem-ia h1,
+.mensagem-ia h2,
+.mensagem-ia h3,
+.mensagem-ia h4,
+.mensagem-ia h5,
+.mensagem-ia h6 {
+    text-shadow: none;
+    font-weight: 599;
+}
+
+.caixa-chat {
+    width: 70%;
+    margin: 0 auto 70px auto;
+    min-height: 58px;
+    height: auto;
+    align-items: flex-end;
+    display: flex;
+    position: relative;
+}
+
+.caixa-chat textarea {
+    min-height: 52px;
+    flex: 1;
+    background-color: #5f666d;
+    border: 2px solid #18b7b0;
+    border-radius: 30px;
+    padding: 16px 65px 16px 20px;
+    box-sizing: border-box;
+
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 16px;
+    resize: none;
+    overflow-y: hidden;
+    line-height: 22px;
+
+    outline: none;
+}
+
+.caixa-chat textarea::placeholder {
+    color: #8f969d;
+    opacity: 1;
+}
+
+.caixa-chat button {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+
+    background-color: #d9dde0;
+    border: 2px solid #7f8b91;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    cursor: pointer;
+}
+
+.caixa-chat button svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #5f6b72;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+}
+
+.usuario-sidebar {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+
+   position: relative;
+
+    cursor: pointer;
+}
+
+.usuario-sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3.5px;
+
+    background: radial-gradient(
+        circle at 50% 50%,
+        #98e8cd,
+        #1a8591
+    );
+}
+
+.usuario-avatar {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 15px;
+
+    border: 1.5px solid transparent;
+
+    background:
+        linear-gradient(#232a33, #232a33) padding-box,
+        radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+}
+
+.usuario-nome {
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.excluir-conversa {
+    margin-left: auto;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.container-mensagem-usuario {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+}
+
+.acoes-mensagem {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.container-mensagem-usuario:hover .acoes-mensagem {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.caixa-edicao-mensagem {
+    width: 100%;
+    max-width: 800px;
+    padding: 12px;
+    border-radius: 20px;
+
+    border: 1.5px solid transparent;
+    background:
+        linear-gradient(#232a33, #232a33) padding-box,
+        radial-gradient(circle at 50% 50%, #98e8cd, #1a8591) border-box;
+
+    box-sizing: border-box;
+}
+
+.campo-edicao-mensagem {
+    width: 100%;
+    min-height: 55px;
+    resize: none;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+
+    box-sizing: border-box;
+}
+
+.acoes-edicao-mensagem {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.botao-cancelar-edicao,
+.botao-salvar-edicao {
+    padding: 7px 14px;
+    border-radius: 18px;
+    cursor: pointer;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+}
+
+.botao-cancelar-edicao {
+    border: 1px solid #98e8cd;
+    background: transparent;
+    color: #98e8cd;
+}
+
+.botao-salvar-edicao {
+    border: none;
+    background: #98e8cd;
+    color: #020b14;
+}
+
+.avatar-mensagem-usuario {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #232a33;
+    border: 1.5px solid #1a8591;
+
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+
+    flex-shrink: 0;
+}
+
+.avatar-mensagem-usuario img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.avatar-escolher-foto {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #232a33;
+    border: 1.5px solid #1a8591;
+
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.avatar-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.usuario-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.usuario-avatar-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: none;
+}
+
+.modal-foto-perfil {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.modal-foto-conteudo {
+    position: relative;
+    background: #232a33;
+    padding: 20px;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-foto-imagem {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.fechar-modal-foto {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.trocar-foto-perfil {
+    border: 1.5px solid #1a8591;
+    border-radius: 20px;
+    background: #07131d;
+    color: #98e8cd;
+
+    padding: 9px 18px;
+    cursor: pointer;
+}
+
+.usuario-nome-input {
+    width: 145px;
+    max-width: 145px;
+    box-sizing: border-box;
+
+    padding: 4px 8px;
+
+    background: #07131d;
+    color: white;
+
+    border: 1.5px solid #1a8591;
+    border-radius: 8px;
+    outline: none;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+}
+
+.usuario-nome-input:focus {
+    border-color: #98e8cd;
+}
+
+.usuario-nome {
+    cursor: pointer;
+}
+
+.botao-editar-mensagem,
+.botao-excluir-mensagem {
+    background: transparent;
+    border: 1px solid #18b7b0;
+    border-radius: 10px;
+
+    color: white;
+    padding: 4px 10px;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.botao-editar-mensagem:hover,
+.botao-excluir-mensagem:hover {
+    background: rgba(24, 183, 176, 0.12);
+}
+
+.logo-mensagem-ia {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+
+    background-color: #7c858d;
+    border-radius: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+
+    align-self: flex-start;
+    margin-left: 6px;
+    margin-bottom: -4px;
+}
+
+/* RESPONSIVIDADE DA TELA DE CONVERSA */
+
+.botao-menu-sidebar {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .tela-inicial {
+        box-sizing: border-box;
+        padding: 40px 7%;
+        transform: none;
+        overflow: hidden;
+    }
+
+    .conteudo-inicial {
+        width: min(78vw, 700px);
+        transform: none;
+        transform-origin: center;
+        z-index: 2;
+    }
+
+    .conteudo-inicial h1 {
+        font-size: clamp(46px, 6vw, 60.5px);
+        line-height: 1.1;
+    }
+
+    .subtitulo {
+        font-size: clamp(22px, 3vw, 28px);
+    }
+
+    .caixa-pergunta {
+        width: 100%;
+        transform: translate(0, 55px);
+    }
+
+    .neon {
+        width: 330px;
+        right: -100px;
+    }
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .mensagens-chat,
+    .caixa-chat {
+        width: 85%;
+    }
+}
+
+@media (max-width: 768px) {
+    .tela-inicial {
+        min-height: 100svh;
+        width: 100%;
+        padding: 88px 24px 36px;
+        align-items: center;
+        justify-content: center;
+        transform: none;
+    }
+
+    .tela-inicial .logo {
+        top: 22px;
+        left: 22px;
+        width: 46px;
+    }
+
+    .conteudo-inicial {
+        width: 100%;
+        max-width: 560px;
+        transform: none;
+    }
+
+    .conteudo-inicial h1 {
+        font-size: clamp(38px, 10vw, 52px);
+        line-height: 1.08;
+    }
+
+    .subtitulo {
+        margin-top: 14px;
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.3;
+    }
+
+    .pena {
+        position: static;
+        display: block;
+        width: 78px;
+        margin: 38px 0 12px 28px;
+    }
+
+    .caixa-pergunta {
+        width: 100%;
+        height: 54px;
+        margin-top: 0;
+        transform: none;
+    }
+
+    .caixa-pergunta input {
+        min-width: 0;
+        padding: 0 58px 0 18px;
+        font-size: 13px;
+    }
+
+    .caixa-pergunta button {
+        width: 44px;
+        height: 44px;
+    }
+
+    .neon {
+        width: 270px;
+        right: -115px;
+        top: 58%;
+        opacity: 0.72;
+    }
+
+    .tela-chat {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.aberta {
+        transform: translateX(0);
+    }
+
+    .area-chat {
+        width: 100%;
+        min-width: 0;
+        position: relative;
+    }
+
+    .botao-menu-sidebar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: 44px;
+        height: 44px;
+        z-index: 1001;
+        border: 1px solid #1a8591;
+        border-radius: 50%;
+        background: #0b1722;
+        color: #98e8cd;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .mensagens-chat {
+        width: 100%;
+        padding: 76px 16px 30px;
+    }
+
+    .mensagem-usuario,
+    .mensagem-ia {
+        max-width: 85%;
+    }
+
+    .caixa-chat {
+        width: calc(100% - 32px);
+        margin: 0 16px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tela-inicial {
+        padding: 78px 18px 28px;
+    }
+
+    .conteudo-inicial h1 {
+        font-size: clamp(34px, 11vw, 44px);
+    }
+
+    .subtitulo {
+        font-size: 18px;
+    }
+
+    .pena {
+        width: 68px;
+        margin: 34px 0 10px 20px;
+    }
+
+    .caixa-pergunta {
+        height: 52px;
+    }
+
+    .caixa-pergunta input {
+        font-size: 12px;
+    }
+
+    .neon {
+        width: 230px;
+        right: -105px;
+        opacity: 0.55;
+    }
+}

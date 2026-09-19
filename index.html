@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gustaguest</title>
+        <link rel="icon" href="data:,">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="tela-inicial">
+        <img src="logo.png" alt="Logo Gustaguest" class="logo">
+        <img src="neon.png" alt="" class="neon">
+        <div class="conteudo-inicial">
+            <h1>Olá, sou <span>Gustaguest</span></h1>
+            <p class="subtitulo">e sou seu assistente de estudo.</p>
+            <img src="pena.png" alt="" class="pena">
+                <div class="caixa-pergunta">
+                    <input type="text" placeholder="O QUE VOCÊ DESEJA ESTUDAR?">
+                    <button type="button" class="botao-enviar">
+                         <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 2L11 13"></path>
+                            <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                         </svg>
+                    </button>
+                </div>
+        </div>
+    </main>
+    <main class="tela-chat">
+        <aside class="sidebar">
+            <div class="sidebar-topo">
+                <img src="logo.png" alt="Logo Gustaguest" class="sidebar-logo">
+                <span class="sidebar-nome">Gustaguest</span>
+            </div>
+            <button class="nova-conversa" type="button">
+                + NOVA CONVERSA
+            </button>
+            <div class="historico-chats">
+            </div>
+            <div class="usuario-sidebar">
+                <div class="usuario-avatar">
+                    <span class="usuario-avatar-letra">G</span>
+                    <img class="usuario-avatar-foto" alt="Foto do usuário">
+                </div>
+
+<div class="usuario-info">
+    <span class="usuario-nome" title="Clique para editar">Gustavo</span>
+
+          <input
+                type="text"
+                class="usuario-nome-input"
+                maxlength="20"
+                hidden
+>
+</div>
+            </div>
+        </aside>
+
+<div class="modal-foto-perfil">
+    <div class="modal-foto-conteudo">
+        <button type="button" class="fechar-modal-foto">×</button>
+
+            <img class="modal-foto-imagem" alt="Foto de perfil ampliada">
+
+        <button type="button" class="trocar-foto-perfil">
+            Trocar foto
+        </button>
+    </div>
+</div>
+
+<section class="area-chat">
+    <button
+        type="button"
+        class="botao-menu-sidebar"
+        aria-label="Abrir menu lateral"
+        aria-expanded="false"
+    >
+        &#9776;
+    </button>
+
+    <div class="rolagem-chat">
+        <div class="mensagens-chat">
+        </div>
+    </div>
+            
+          <input
+            type="file"
+            id="foto-perfil"
+            accept="image/*"
+            hidden
+>
+
+            <div class="caixa-chat">
+                <textarea
+                        placeholder="Digite sua mensagem..."
+                        rows="1"
+                ></textarea>
+                <button type="button" class="botao-chat-enviar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22 2L11 13"></path>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html> 
